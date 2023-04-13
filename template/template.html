@@ -1,0 +1,17 @@
+<title>Github Report</title>
+<h1>{{ date }}</h1>
+<h2>新发现代码 total: {{ total }}</h2>
+<table>
+<tr>
+  <td>Repository</td>
+  <td>Code Location</td>
+  <td>keywords</td>
+</tr>
+{% for item in news %}
+<tr>
+  <td>{{ item['repository'] }}</td>
+  <td><a href={{ item['html_url'] }}> {{ item['name'] }} </a></td>
+  <td>{{ ' '.join(item['keywords']) }}</td>
+</tr>
+{% endfor %}
+</table>

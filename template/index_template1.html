@@ -1,0 +1,17 @@
+<html>
+<body style="margin: 0;padding: 0;">
+<ul class="tabs" style="margin: 40px auto;padding: 0;width: 90%;display: block;position: relative;">
+{% for company in companys %}
+<li class="tab" style="margin: 0;padding: 0;display: block;">
+	<label style="margin: 0;padding: 6px 21px;display: block;font-size: 12px;text-transform: uppercase;cursor: pointer;position: relative;width: 100%;color: #FFF;background: #4A83FD;">{{ company }}</label>
+  <p style="margin: 0;padding: 0;">total: {{ new_codes_count[company] }}</p>
+  {% if new_codes_count[company] < 300 %}
+  {% include "github_report_codes_" + company + "_" + date + ".html" %}
+  {% else %}
+  <p style="margin: 0;padding: 0;"> 数量大于300。。。。(查看附件)</p>
+  {% endif %}
+</li>
+{% endfor %}
+</ul>
+</body>
+</html>

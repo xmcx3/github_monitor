@@ -1,0 +1,103 @@
+<html>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h3{
+  text-transform: uppercase;
+  font-weight: normal;
+}
+
+table {
+  color: #DFDFDF
+}
+
+.tabs{
+    width: 90%;
+    display: block;
+    margin: 40px auto;
+    position: relative;
+}
+
+.tabs .tab{
+    float: left;
+    display: block;
+}
+
+.tabs .tab>input[type="radio"] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+.tabs .tab>label {
+    display: block;
+    padding: 6px 21px;
+    font-size: 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    color: #FFF;
+    background: #4A83FD;
+}
+
+.tabs .content {
+    z-index: 0;/* or display: none; */
+    overflow: hidden;
+    width: 90%;
+    padding: 25px;
+    position: absolute;
+    top: 27px;
+    left: 0;
+    background: #303030;
+    color: #DFDFDF;
+    opacity:0;
+    transition: opacity 400ms ease-out;
+}
+
+.tabs>.tab>[id^="tab"]:checked + label {
+    top: 0;
+    background: #303030;
+    color: #F5F5F5;
+}
+
+.tabs>.tab>[id^="tab"]:checked ~ [id^="tab-content"] {
+    z-index: 1;/* or display: block; */
+    opacity: 1;
+    transition: opacity 400ms ease-out;
+}
+</style>
+
+<body>
+<ul class="tabs">
+<li class="tab">
+    <input type="radio" name="tabs" checked="checked" id="tab" />
+    <label for="tab">{{ companys[0] }}</label>
+    <div id="tab-content1" class="content">
+        <p>total: {{ new_codes_count[companys[0]] }}</p>
+        {% if new_codes_count[companys[0]] < 300 %}
+           {% include "github_new_codes_" + companys[0] + "_" + date + ".html" %}
+        {% else %}
+            <p> 数量大于300。。。。(查看附件)</p>
+        {% endif %}
+    </div>
+</li>
+
+{% for company in companys[1:] %}
+<li class="tab">
+    <input type="radio" name="tabs" checked="checked" id="tab{{ loop.index }}" />
+    <label for="tab{{ loop.index }}">{{ company }}</label>
+    <div id="tab-content{{ i }}" class="content">
+        <p>total: {{ new_codes_count[company] }}</p>
+        {% if new_codes_count[company] < 300 %}
+           {% include "github_new_codes_" + company + "_" + date + ".html" %}
+        {% else %}
+            <p> 数量大于300。。。。(查看附件)</p>
+        {% endif %}
+    </div>
+</li>
+</ul>
+</body>
+</html>

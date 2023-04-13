@@ -1,0 +1,36 @@
+<html>
+<body style="margin: 0;padding: 0;">
+    <p style="margin: 40px auto;padding: 0; width: 90%; color: grey;">
+        ps:regex_matches为匹配该文件内容成功的正则表达式 re.search(filecontent, regexp);
+    </p>
+<ul class="tabs" style="margin: 40px auto;padding: 0;width: 90%;display: block;position: relative;">
+{% for company in companys %}
+<li class="tab" style="margin: 0;padding: 0;display: block;">
+	<label style="margin: 0;padding: 6px 21px;display: block;font-size: 12px;text-transform: uppercase;cursor: pointer;position: relative;width: 100%;color: #FFF;background: #4A83FD;">{{ company }}</label>
+  <p style="margin: 0;padding: 0;">* 最新提交代码数量: {{ codes_count[company] }}</p>
+  <p style="margin: 0;padding: 0;">* 新代码数量: {{ new_codes_count[company] }}</p>
+  {% if codes_count[company] != 0 %}
+  <table>
+      <tr>
+          <td>Repository</td>
+          <td>Code Location</td>
+          <td>keywords</td>
+          <td>regex_matches</td>
+          <td>isnew</td>
+      </tr>
+      {% for item in items[company] %}
+      <tr {{ "" if item['isnew'] else "style=\" color: grey\""}}>
+          <td>{{ item['repository'] }}</td>
+          <td><a href={{ item['html_url'] }}> {{ item['name'] }} </a></td>
+          <td>{{ ' '.join(item['keywords']) }}</td>
+          <td>{{ item['regexp_match'] }}</td>
+          <td>{{ item['isnew'] }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+  {% endif %}
+</li>
+{% endfor %}
+</ul>
+</body>
+</html>
